@@ -21,7 +21,7 @@ allprojects {
 
     ext {
         androidSupportVersion = "27.1.1"
-
+        constraintLayout = "1.1.2"
     }
 }
 
