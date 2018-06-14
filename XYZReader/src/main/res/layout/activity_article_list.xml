@@ -22,7 +22,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:background="@color/transparentWhiteLighter"
+        app:theme="@style/AppTheme.Toolbar">
 
         <!--TODO logo should not be white-->
         <ImageView
