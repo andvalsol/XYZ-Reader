@@ -25,8 +25,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <!--We need to add a dark action bar since it colors the icon black, and that's what we need-->
-    <style name="AppTheme.Toolbar" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.Appbar" parent="@style/ThemeOverlay.AppCompat.Light">
         <item name="android:windowActionBarOverlay">true</item>
         <!-- Support Library compatibility -->
         <item name="windowActionBarOverlay">true</item>
