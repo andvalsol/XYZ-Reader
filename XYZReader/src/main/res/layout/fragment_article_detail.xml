@@ -17,8 +17,7 @@
             <FrameLayout
                 android:id="@+id/photo_container"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_image_height"
-                android:background="@color/photo_placeholder">
+                android:layout_height="@dimen/detail_image_height">
 
                 <!--suppress AndroidLintContentDescription -->
                 <ImageView
@@ -26,11 +25,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/detail_image_height"
                     android:scaleType="centerCrop" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="112dp"
-                    android:background="@drawable/photo_background_protection" />
 
             </FrameLayout>
 
@@ -58,10 +52,10 @@
                     <TextView
                         android:id="@+id/article_title"
                         style="@style/TitleText"
-                        android:text="fdafadfadfadfadfa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="@dimen/detail_metabar_title_bottom_padding" />
+                        android:paddingBottom="@dimen/detail_metabar_title_bottom_padding"
+                        android:text="fdafadfadfadfadfa" />
 
                     <TextView
                         android:id="@+id/article_byline"

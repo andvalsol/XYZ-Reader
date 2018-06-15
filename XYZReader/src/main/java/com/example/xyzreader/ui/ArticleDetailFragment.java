@@ -236,7 +236,16 @@ public class ArticleDetailFragment extends Fragment implements
                                 + "</font>"));
                 
             }
-            bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
+            
+            /*
+            * Using the Memory Allocator and Recording all the allocation we see that the body of text is very large, therefore the article body
+            * has to request onMeasure() to be called multiple times
+            * */
+            
+            //Get the text from the mCursor
+            String body = mCursor.getString(ArticleLoader.Query.BODY);
+            
+            bodyView.setText(Html.fromHtml(body.substring(0, (body.length() <= 800 ? body.length() : 800))));
             ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
                     .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
                         @Override
