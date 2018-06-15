@@ -30,6 +30,5 @@
     <color name="transparentWhiteLighter">#66FFFFFF</color><!-- 40% white -->
 
     <color name="primary_text">#B3000000</color><!-- 70% black -->
-    <color name="secondary_text">#8a000000</color><!-- 54% black -->
 
 </resources>
