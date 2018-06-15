@@ -23,8 +23,6 @@
     <color name="colorPrimaryDark">#BDBDBD</color>
     <color name="accentColor">#03DAC5</color>
 
-    <color name="ltgray">#ffe0e0e0</color>
-
     <color name="transparentBlack">#66000000</color><!-- 40% black -->
     <color name="transparentWhite">#CCFFFFFF</color><!-- 80% white -->
     <color name="transparentWhiteLighter">#66FFFFFF</color><!-- 40% white -->

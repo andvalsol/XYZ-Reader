@@ -1,6 +1,5 @@
 <com.example.xyzreader.ui.DrawInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/draw_insets_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -43,7 +42,7 @@
                 android:layout_marginRight="16dp"
                 app:cardCornerRadius="@dimen/corner_radius"
                 app:layout_constraintBottom_toBottomOf="@+id/photo_container"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/photo_container">
 
@@ -59,6 +58,7 @@
                     <TextView
                         android:id="@+id/article_title"
                         style="@style/TitleText"
+                        android:text="fdafadfadfadfadfa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="@dimen/detail_metabar_title_bottom_padding" />

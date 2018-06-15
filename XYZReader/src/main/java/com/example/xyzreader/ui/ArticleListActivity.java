@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Html;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,10 +37,10 @@ import java.util.GregorianCalendar;
  * touched, lead to a {@link ArticleDetailActivity} representing item details. On tablets, the
  * activity presents a grid of items as cards.
  */
+
 public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final String TAG = ArticleListActivity.class.toString();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
 
@@ -108,10 +109,26 @@ public class ArticleListActivity extends AppCompatActivity implements
         Adapter adapter = new Adapter(cursor);
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
-        int columnCount = getResources().getInteger(R.integer.list_column_count); //TODO improve this code depending on the size of the device
+        int columnCount = setGridColumnCount(); //TODO improve this code depending on the size of the device getResources().getInteger(R.integer.list_column_count)
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(sglm);
+    }
+    
+    private int setGridColumnCount() {
+        //Set the maximum size for the grid item
+        int gridItemMaxSize = getResources().getDimensionPixelSize(R.dimen.grid_item_max_size); //Max grid item is set as 160dp
+    
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+    
+        //Get the screen width size
+        int screenWidth = displaymetrics.widthPixels;
+    
+        int columns = screenWidth / gridItemMaxSize;
+    
+        //We want to make sure that the are only 3 columns max, since 4 doesn't look well visually
+        return columns >= 3 ? 3 : columns;
     }
 
     @Override
@@ -152,8 +169,6 @@ public class ArticleListActivity extends AppCompatActivity implements
                 String date = mCursor.getString(ArticleLoader.Query.PUBLISHED_DATE);
                 return dateFormat.parse(date);
             } catch (ParseException ex) {
-                Log.e(TAG, ex.getMessage());
-                Log.i(TAG, "passing today's date");
                 return new Date();
             }
         }
