@@ -18,14 +18,18 @@
 <resources>
     <color name="photo_placeholder">#000000</color>
 
-    <color name="theme_primary">#6200EE</color>
-    <color name="theme_primary_dark">#3700B3</color>
-    <color name="theme_accent">#03DAC5</color>
+    <!--Apply grey colors for primary and primaryDark since we want to draw the user's attention to the images-->
+    <color name="colorPrimary">#FAFAFA</color>
+    <color name="colorPrimaryDark">#BDBDBD</color>
+    <color name="accentColor">#03DAC5</color>
 
     <color name="ltgray">#ffe0e0e0</color>
 
     <color name="transparentBlack">#66000000</color><!-- 40% black -->
     <color name="transparentWhite">#CCFFFFFF</color><!-- 80% white -->
     <color name="transparentWhiteLighter">#66FFFFFF</color><!-- 40% white -->
+
+    <color name="primary_text">#B3000000</color><!-- 70% black -->
+    <color name="secondary_text">#8a000000</color><!-- 54% black -->
 
 </resources>
