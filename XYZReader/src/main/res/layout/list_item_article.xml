@@ -24,7 +24,7 @@
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/transparentBlack"
+        android:background="@drawable/photo_background_protection"
         app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
         app:layout_constraintEnd_toEndOf="@+id/thumbnail"
         app:layout_constraintStart_toStartOf="@+id/thumbnail"
