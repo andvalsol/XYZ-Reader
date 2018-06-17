@@ -29,8 +29,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_gravity="bottom"
+                    android:layout_height="@dimen/detail_image_height"
                     android:background="@drawable/photo_background_protection_for_detail" />
 
             </FrameLayout>
@@ -83,7 +82,6 @@
                 style="@style/BodyText"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp"
                 android:background="@android:color/white"
                 android:padding="100dp"
                 android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
