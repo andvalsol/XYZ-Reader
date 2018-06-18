@@ -69,6 +69,7 @@
             </android.support.v7.widget.CardView>
 
             <!--Use letter spacing of .25 according to the Material Design guidelines-->
+            <!--We need to set the IncrementalTextView height as wrap_content so that when we increment the text it updates properly-->
             <com.example.xyzreader.ui.IncrementalTextView
                 android:id="@+id/article_body"
                 style="@style/BodyText"

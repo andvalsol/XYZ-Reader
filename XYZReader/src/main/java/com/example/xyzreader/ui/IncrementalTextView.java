@@ -1,13 +1,17 @@
 package com.example.xyzreader.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.SpannableString;
+import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
-import android.view.MotionEvent;
+import android.view.View;
 
 import com.example.xyzreader.R;
 
@@ -20,9 +24,24 @@ public class IncrementalTextView extends AppCompatTextView {
     private int mIncrementalSize;
     private String mText;
     
-    //For click handling
-    boolean touchOn;
-    boolean mDownTouch = false;
+    private final TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+        
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+        
+        @Override
+        public void afterTextChanged(Editable s) {
+            //Check that the text is not empty
+            if (!s.toString().equals(getContext().getString(R.string.empty_text))) {
+                //Set view more logic needed
+                viewMoreLogic();
+            }
+        }
+    };
     
     public IncrementalTextView(Context context) {
         super(context);
@@ -46,8 +65,6 @@ public class IncrementalTextView extends AppCompatTextView {
      * as the AttributeSet
      * */
     private void initView(Context context, AttributeSet attributeSet) {
-        touchOn = false;
-        
         TypedArray typedArray = context.getTheme()
                 .obtainStyledAttributes(attributeSet, R.styleable.IncrementalTextView, 0, 0);
         
@@ -62,6 +79,44 @@ public class IncrementalTextView extends AppCompatTextView {
             //Recycle the typedArray
             typedArray.recycle();
         }
+        
+        //Detect when the setText has been set
+        addTextChangeListener();
+    }
+    
+    private void viewMoreLogic() {
+        //Proceed to remove the text change listener
+        removeTextChangeListener();
+        
+        //Get the text so that we can append the "... view more" string
+        if (isViewMoreTextNeeded()) setSpannableViewMore();
+    }
+    
+    private void setSpannableViewMore() {
+        String text = getContext().getString(R.string.view_more);
+        
+        int end = text.length();
+        
+        Log.d("TextView", "The text that is currently in the text view is: " + getText());
+        
+        //Add ... view more text
+        SpannableString spannableString = new SpannableString(text);
+        spannableString.setSpan(new SpannableViewMore(), 1, end, 0);
+        append(spannableString);
+        
+        setMovementMethod(new LinkMovementMethod());
+    }
+    
+    private void addTextChangeListener() {
+        addTextChangedListener(mTextWatcher);
+    }
+    
+    private void removeTextChangeListener() {
+        removeTextChangedListener(mTextWatcher);
+    }
+    
+    private boolean isViewMoreTextNeeded() {
+        return (mText.length() > getText().length());
     }
     
     public void setGlobalText(String globalText) {
@@ -78,50 +133,22 @@ public class IncrementalTextView extends AppCompatTextView {
         return getText().length();
     }
     
-    
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        super.onTouchEvent(event);
+    private class SpannableViewMore extends ClickableSpan {
         
-        // Listening for the down and up touch events
-        switch (event.getAction()) {
+        @Override
+        public void onClick(View widget) {
+            //TODO Remove the ClickableSpan
             
-            case MotionEvent.ACTION_DOWN:
-                
-                touchOn = !touchOn;
-                invalidate();
-                
-                mDownTouch = true;
-                
-                return true;
+            //Add the text change listener
+            addTextChangeListener();
             
-            case MotionEvent.ACTION_UP:
-                if (mDownTouch) {
-                    mDownTouch = false;
-                    
-                    performClick();
-                    
-                    return true;
-                }
+            //Append the text
+            appendText(mText.substring(getText().length(), textIncrementer()));
         }
-        
-        return false; // Return false for other touch events
     }
     
-    @Override
-    public boolean performClick() {
-        super.performClick();
-        
-        int textLength = getText().length();
-        int textIncrementer = textIncrementer();
-        
-        Log.d("Length", "The length of the text is: " + textLength + ", and the textIncrementer() return int is: " + textIncrementer);
-        
-        
+    private void appendText(String text) {
         //Append the text incrementally
-        append(mText.substring(textLength, textIncrementer));
-        
-        return true;
+        append(text);
     }
 }

@@ -269,9 +269,10 @@ public class ArticleDetailFragment extends Fragment implements
                     });
         } else {
             mRootView.setVisibility(View.GONE);
-            titleView.setText("N/A");
-            bylineView.setText("N/A");
-            bodyView.setText("N/A");
+            
+            titleView.setText(getString(R.string.empty_text));
+            bylineView.setText(getString(R.string.empty_text));
+            bodyView.setText(getString(R.string.empty_text));
         }
     }
     
