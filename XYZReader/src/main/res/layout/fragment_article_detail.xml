@@ -69,15 +69,16 @@
             </android.support.v7.widget.CardView>
 
             <!--Use letter spacing of .25 according to the Material Design guidelines-->
-            <TextView
+            <com.example.xyzreader.ui.IncrementalTextView
                 android:id="@+id/article_body"
                 style="@style/BodyText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
                 android:paddingBottom="@dimen/detail_body_bottom_margin"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                app:incrementalSize="900"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

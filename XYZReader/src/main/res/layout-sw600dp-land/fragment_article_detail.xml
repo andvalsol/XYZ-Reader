@@ -1,9 +1,9 @@
 <com.example.xyzreader.ui.DrawInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/draw_insets_frame_layout"
-    android:background="@color/borderBackground"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/borderBackground">
 
     <com.example.xyzreader.ui.ObservableScrollView
         android:id="@+id/scrollview"
@@ -60,8 +60,7 @@
                         style="@style/TitleText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="@dimen/detail_metabar_title_bottom_padding"
-                        android:text="fdafadfadfadfadfa" />
+                        android:paddingBottom="@dimen/detail_metabar_title_bottom_padding" />
 
                     <TextView
                         android:id="@+id/article_byline"
@@ -77,17 +76,18 @@
             </android.support.v7.widget.CardView>
 
             <!--Use letter spacing of .25 according to the Material Design guidelines-->
-            <TextView
+            <com.example.xyzreader.ui.IncrementalTextView
                 android:id="@+id/article_body"
                 style="@style/BodyText"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
-                android:padding="100dp"
                 android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
                 android:maxWidth="@dimen/detail_card_max_width"
+                android:padding="100dp"
                 android:paddingBottom="@dimen/detail_body_bottom_margin"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                app:incrementalSize="900"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

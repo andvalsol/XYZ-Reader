@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -53,13 +52,11 @@ public class ArticleDetailFragment extends Fragment implements
     private View mRootView;
     private int mMutedColor = 0xFF333333;
     private ObservableScrollView mScrollView;
-    private DrawInsetsFrameLayout mDrawInsetsFrameLayout;
     
     private int mTopInset;
     private View mPhotoContainerView;
     private ImageView mPhotoView;
     private int mScrollY;
-    private boolean mIsCard = false;
     private Window mWindow;
     private int mStatusBarFullOpacityBottom;
     
@@ -68,6 +65,8 @@ public class ArticleDetailFragment extends Fragment implements
     private SimpleDateFormat outputFormat = new SimpleDateFormat();
     // Most time functions can only handle 1902 - 2037
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2, 1, 1);
+    
+    private int textCounter;
     
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -92,7 +91,6 @@ public class ArticleDetailFragment extends Fragment implements
             mItemId = getArguments().getLong(ARG_ITEM_ID);
         }
         
-        mIsCard = getResources().getBoolean(R.bool.detail_is_card);
         mStatusBarFullOpacityBottom = getResources().getDimensionPixelSize(
                 R.dimen.detail_card_top_margin);
         setHasOptionsMenu(true);
@@ -121,8 +119,8 @@ public class ArticleDetailFragment extends Fragment implements
         mWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
-        mDrawInsetsFrameLayout = mRootView.findViewById(R.id.draw_insets_frame_layout);
-        mDrawInsetsFrameLayout.setOnInsetsCallback(new DrawInsetsFrameLayout.OnInsetsCallback() {
+        DrawInsetsFrameLayout drawInsetsFrameLayout = mRootView.findViewById(R.id.draw_insets_frame_layout);
+        drawInsetsFrameLayout.setOnInsetsCallback(new DrawInsetsFrameLayout.OnInsetsCallback() {
             @Override
             public void onInsetsChanged(Rect insets) {
                 mTopInset = insets.top;
@@ -206,11 +204,7 @@ public class ArticleDetailFragment extends Fragment implements
         TextView titleView = mRootView.findViewById(R.id.article_title);
         TextView bylineView = mRootView.findViewById(R.id.article_byline);
         bylineView.setMovementMethod(new LinkMovementMethod());
-        TextView bodyView;
-        bodyView = mRootView.findViewById(R.id.article_body);
-        
-        
-        bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
+        IncrementalTextView bodyView = mRootView.findViewById(R.id.article_body);
         
         if (mCursor != null) {
             mRootView.setAlpha(0);
@@ -245,7 +239,13 @@ public class ArticleDetailFragment extends Fragment implements
             //Get the text from the mCursor
             String body = mCursor.getString(ArticleLoader.Query.BODY);
             
+            Log.d("textBody", "The length of the text is: " + body.length());
+            
+            //Set the global text to the IncrementalTextView
+            bodyView.setGlobalText(body);
+            
             bodyView.setText(Html.fromHtml(body.substring(0, (body.length() <= 800 ? body.length() : 800))));
+            
             ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
                     .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
                         @Override
