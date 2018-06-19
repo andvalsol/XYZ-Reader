@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.text.Editable;
-import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
@@ -23,6 +23,8 @@ public class IncrementalTextView extends AppCompatTextView {
     
     private int mIncrementalSize;
     private String mText;
+    private String mSuffix;
+    private SpannableStringBuilder mSpannableStringBuilder;
     
     private final TextWatcher mTextWatcher = new TextWatcher() {
         @Override
@@ -75,6 +77,9 @@ public class IncrementalTextView extends AppCompatTextView {
             //Get the global text
             mText = typedArray.getString(R.styleable.IncrementalTextView_globalText);
             
+            //Get the desired suffix
+            mSuffix = typedArray.getString(R.styleable.IncrementalTextView_suffix);
+            
         } finally {
             //Recycle the typedArray
             typedArray.recycle();
@@ -93,18 +98,18 @@ public class IncrementalTextView extends AppCompatTextView {
     }
     
     private void setSpannableViewMore() {
-        String text = getContext().getString(R.string.view_more);
-        
-        int end = text.length();
+        int end = mSuffix.length();
         
         Log.d("TextView", "The text that is currently in the text view is: " + getText());
         
         //Add ... view more text
-        SpannableString spannableString = new SpannableString(text);
-        spannableString.setSpan(new SpannableViewMore(), 1, end, 0);
-        append(spannableString);
+        mSpannableStringBuilder = new SpannableStringBuilder(mSuffix);
+        Log.d("ClickableSpan", "the clickableSpan is: " + mSpannableStringBuilder);
         
-        setMovementMethod(new LinkMovementMethod());
+        mSpannableStringBuilder.setSpan(new SpannableViewMore(), 1, end, 0);
+        append(mSpannableStringBuilder);
+        
+        setMovementMethod(LinkMovementMethod.getInstance());
     }
     
     private void addTextChangeListener() {
@@ -134,16 +139,20 @@ public class IncrementalTextView extends AppCompatTextView {
     }
     
     private class SpannableViewMore extends ClickableSpan {
-        
+    
         @Override
         public void onClick(View widget) {
-            //TODO Remove the ClickableSpan
+            //Remove span
+            mSpannableStringBuilder.removeSpan(this);
             
             //Add the text change listener
             addTextChangeListener();
+    
+            Log.d("Body1", "The text is: " + getText());
             
             //Append the text
-            appendText(mText.substring(getText().length(), textIncrementer()));
+            setText(mText.substring(0, textIncrementer()));
+            
         }
     }
     

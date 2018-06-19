@@ -2,5 +2,6 @@
     <declare-styleable name="IncrementalTextView">
         <attr name="incrementalSize" format="integer" />
         <attr name="globalText" format="string" />
+        <attr name="suffix" format="string" />
     </declare-styleable>
 </resources>

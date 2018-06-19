@@ -239,7 +239,7 @@ public class ArticleDetailFragment extends Fragment implements
             //Get the text from the mCursor
             String body = mCursor.getString(ArticleLoader.Query.BODY);
             
-            Log.d("textBody", "The length of the text is: " + body.length());
+            Log.d("Body2", "The text is: " + body);
             
             //Set the global text to the IncrementalTextView
             bodyView.setGlobalText(body);
