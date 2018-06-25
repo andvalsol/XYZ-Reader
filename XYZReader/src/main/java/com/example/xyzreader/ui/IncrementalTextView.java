@@ -10,7 +10,6 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
 import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
 import android.view.View;
 
 import com.example.xyzreader.R;
@@ -21,10 +20,10 @@ import com.example.xyzreader.R;
 
 public class IncrementalTextView extends AppCompatTextView {
     
+    //Values set in XML
     private int mIncrementalSize;
     private String mText;
     private String mSuffix;
-    private SpannableStringBuilder mSpannableStringBuilder;
     
     private final TextWatcher mTextWatcher = new TextWatcher() {
         @Override
@@ -100,14 +99,11 @@ public class IncrementalTextView extends AppCompatTextView {
     private void setSpannableViewMore() {
         int end = mSuffix.length();
         
-        Log.d("TextView", "The text that is currently in the text view is: " + getText());
-        
         //Add ... view more text
-        mSpannableStringBuilder = new SpannableStringBuilder(mSuffix);
-        Log.d("ClickableSpan", "the clickableSpan is: " + mSpannableStringBuilder);
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(mSuffix);
         
-        mSpannableStringBuilder.setSpan(new SpannableViewMore(), 1, end, 0);
-        append(mSpannableStringBuilder);
+        spannableStringBuilder.setSpan(new SpannableViewMore(), 1, end, 0);
+        append(spannableStringBuilder);
         
         setMovementMethod(LinkMovementMethod.getInstance());
     }
@@ -139,25 +135,15 @@ public class IncrementalTextView extends AppCompatTextView {
     }
     
     private class SpannableViewMore extends ClickableSpan {
-    
+        
         @Override
         public void onClick(View widget) {
-            //Remove span
-            mSpannableStringBuilder.removeSpan(this);
-            
             //Add the text change listener
             addTextChangeListener();
-    
-            Log.d("Body1", "The text is: " + getText());
             
             //Append the text
             setText(mText.substring(0, textIncrementer()));
             
         }
-    }
-    
-    private void appendText(String text) {
-        //Append the text incrementally
-        append(text);
     }
 }

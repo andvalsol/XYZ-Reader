@@ -19,8 +19,8 @@
     <color name="photo_placeholder">#000000</color>
 
     <!--Apply grey colors for primary and primaryDark since we want to draw the user's attention to the images-->
-    <color name="colorPrimary">#FAFAFA</color>
-    <color name="colorPrimaryDark">#BDBDBD</color>
+    <color name="colorPrimary">#720D5D</color>
+    <color name="colorPrimaryDark">#4E0D3A</color>
     <color name="accentColor">#03DAC5</color>
 
     <color name="transparentWhite">#CCFFFFFF</color><!-- 80% white -->
