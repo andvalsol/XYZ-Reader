@@ -38,7 +38,6 @@
     <style name="BodyText" parent="TextAppearance.AppCompat">
         <item name="android:textAppearance">@font/roboto_mono_medium</item>
         <item name="android:textSize">@dimen/detail_body_text_size</item>
-        <item name="android:textColorLink">@color/accentColor</item>
         <item name="android:letterSpacing">0.1</item>
         <item name="android:textColor">@color/primary_text</item>
     </style>
